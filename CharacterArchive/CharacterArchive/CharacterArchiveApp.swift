@@ -13,7 +13,7 @@ struct CharacterArchiveApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CharacterListView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
