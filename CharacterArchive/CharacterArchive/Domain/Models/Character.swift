@@ -8,7 +8,6 @@
 import Foundation
 
 enum CharacterModel {
-    
     struct Request: Equatable {
         var name: String
         

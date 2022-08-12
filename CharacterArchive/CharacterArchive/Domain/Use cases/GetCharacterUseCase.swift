@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol GetCharacterUseCaseProtocol {
+protocol GetCharacterUseCase {
     func execute(_ id:UUID) async -> Result<CharacterModel.Response?, CharacterError>
 }
 
-//class GetCharacterUseCase: GetCharacterUseCaseProtocol {
+//class DefaultGetCharacterUseCase: GetCharacterUseCase {
 //
 //    private let repo: CharacterRepositoryProtocol
 //

@@ -9,12 +9,10 @@ import SwiftUI
 
 @main
 struct CharacterArchiveApp: App {
-    let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
             CharacterListView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

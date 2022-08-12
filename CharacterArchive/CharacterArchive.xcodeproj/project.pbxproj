@@ -25,6 +25,7 @@
 		8B27CB8B28A54A0F0006F535 /* CharacterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B27CB8A28A54A0F0006F535 /* CharacterRepository.swift */; };
 		8B27CB8D28A54A190006F535 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B27CB8C28A54A190006F535 /* Character.swift */; };
 		8B27CB9028A55F7A0006F535 /* CharacterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B27CB8F28A55F7A0006F535 /* CharacterError.swift */; };
+		8B8D418928A66A85008ED111 /* CharacterDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8D418828A66A85008ED111 /* CharacterDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		8B27CB8A28A54A0F0006F535 /* CharacterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterRepository.swift; sourceTree = "<group>"; };
 		8B27CB8C28A54A190006F535 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		8B27CB8F28A55F7A0006F535 /* CharacterError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterError.swift; sourceTree = "<group>"; };
+		8B8D418828A66A85008ED111 /* CharacterDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,8 +175,8 @@
 		8B27CB7728A544670006F535 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				8B27CB4F28A5431B0006F535 /* Persistence.swift */,
-				8B27CB5128A5431B0006F535 /* CharacterArchive.xcdatamodeld */,
+				8B8D418728A66A73008ED111 /* Data Sources */,
+				8B8D418628A66A69008ED111 /* CoreData */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -222,6 +224,23 @@
 				8B27CB8F28A55F7A0006F535 /* CharacterError.swift */,
 			);
 			path = Errors;
+			sourceTree = "<group>";
+		};
+		8B8D418628A66A69008ED111 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				8B27CB4F28A5431B0006F535 /* Persistence.swift */,
+				8B27CB5128A5431B0006F535 /* CharacterArchive.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		8B8D418728A66A73008ED111 /* Data Sources */ = {
+			isa = PBXGroup;
+			children = (
+				8B8D418828A66A85008ED111 /* CharacterDataSource.swift */,
+			);
+			path = "Data Sources";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,6 +385,7 @@
 				8B27CB5028A5431B0006F535 /* Persistence.swift in Sources */,
 				8B27CB8728A549930006F535 /* EditCharacterUseCase.swift in Sources */,
 				8B27CB7A28A5473B0006F535 /* CharacterListView.swift in Sources */,
+				8B8D418928A66A85008ED111 /* CharacterDataSource.swift in Sources */,
 				8B27CB4728A543180006F535 /* CharacterArchiveApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

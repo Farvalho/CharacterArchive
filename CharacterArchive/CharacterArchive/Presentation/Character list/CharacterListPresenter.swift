@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+class CharacterListPresenter: ObservableObject {
+    
+    @Published var characters: [CharacterModel.Response] = []
+    private let getCharacterList: GetCharacterListUseCase
+    
+    init(getCharacterList: GetCharacterListUseCase) {
+        self.getCharacterList = getCharacterList
+    }
+    
+}
