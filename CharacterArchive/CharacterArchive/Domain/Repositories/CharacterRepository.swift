@@ -18,19 +18,23 @@ protocol CharacterRepository {
 class DefaultCharacterRepository: CharacterRepository {
     private let dataSource: CharacterDataSource
         
+    init() {
+        self.dataSource = DefaultCharacterDataSource()
+    }
+    
     init(dataSource: CharacterDataSource){
         self.dataSource = dataSource
     }
     
-    func getCharacter(id: UUID) async  -> Result<CharacterModel.Response?, CharacterError> {
-        return await  dataSource.getSingle(id: id)
+    func getCharacter(id: UUID) async -> Result<CharacterModel.Response?, CharacterError> {
+        return await dataSource.getSingle(id: id)
     }
     
     func getCharacterList() async -> Result<[CharacterModel.Response], CharacterError> {
         return await dataSource.getMultiple()
     }
     
-    func createCharacter(characterRequest: CharacterModel.Request) async  -> Result<Bool, CharacterError> {
+    func createCharacter(characterRequest: CharacterModel.Request) async -> Result<Bool, CharacterError> {
         return await dataSource.create(characterRequest: characterRequest)
     }
     

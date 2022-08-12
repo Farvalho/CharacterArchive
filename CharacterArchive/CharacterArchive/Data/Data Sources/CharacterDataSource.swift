@@ -19,6 +19,10 @@ class DefaultCharacterDataSource: CharacterDataSource {
     
     let wrapper: CoreDataWrapper
     
+    init() {
+        self.wrapper = PersistenceController()
+    }
+    
     init(wrapper: CoreDataWrapper){
         self.wrapper = wrapper
     }

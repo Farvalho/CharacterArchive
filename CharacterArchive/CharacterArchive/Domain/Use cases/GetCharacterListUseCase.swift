@@ -8,19 +8,21 @@
 import Foundation
 
 protocol GetCharacterListUseCase {
-    func execute() async -> Result<[CharacterModel.Response?], CharacterError>
+    func execute() async -> Result<[CharacterModel.Response], CharacterError>
 }
 
-//class DefaultGetCharacterListUseCase: GetCharacterListUseCase {
-//
-//    private let repo: CharacterRepository
-//
-//    init(repo: CharacterRepository){
-//        self.repo = repo
-//    }
-//
-//    func execute() async -> Result<[CharacterModel.Response?], CharacterError> {
-//        return await repo.getCharacterList()
-//    }
-//
-//}
+class DefaultGetCharacterListUseCase: GetCharacterListUseCase {
+    private let repo: CharacterRepository
+    
+    init() {
+        self.repo = DefaultCharacterRepository()
+    }
+
+    init(repository: CharacterRepository) {
+        self.repo = repository
+    }
+
+    func execute() async -> Result<[CharacterModel.Response], CharacterError> {
+        return await repo.getCharacterList()
+    }
+}
