@@ -25,6 +25,8 @@
 		8B27CB8B28A54A0F0006F535 /* CharacterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B27CB8A28A54A0F0006F535 /* CharacterRepository.swift */; };
 		8B27CB8D28A54A190006F535 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B27CB8C28A54A190006F535 /* Character.swift */; };
 		8B27CB9028A55F7A0006F535 /* CharacterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B27CB8F28A55F7A0006F535 /* CharacterError.swift */; };
+		8B50497528ABB0A90069635E /* CreateCharacterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B50497428ABB0A90069635E /* CreateCharacterPresenter.swift */; };
+		8B50497728ABB0C40069635E /* CreateCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B50497628ABB0C40069635E /* CreateCharacterView.swift */; };
 		8B8D418928A66A85008ED111 /* CharacterDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8D418828A66A85008ED111 /* CharacterDataSource.swift */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +69,8 @@
 		8B27CB8A28A54A0F0006F535 /* CharacterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterRepository.swift; sourceTree = "<group>"; };
 		8B27CB8C28A54A190006F535 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		8B27CB8F28A55F7A0006F535 /* CharacterError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterError.swift; sourceTree = "<group>"; };
+		8B50497428ABB0A90069635E /* CreateCharacterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCharacterPresenter.swift; sourceTree = "<group>"; };
+		8B50497628ABB0C40069635E /* CreateCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCharacterView.swift; sourceTree = "<group>"; };
 		8B8D418828A66A85008ED111 /* CharacterDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				8B27CB7828A546E50006F535 /* Character list */,
+				8B50497128ABB0640069635E /* Character creation */,
 				8B27CB4A28A5431B0006F535 /* Assets.xcassets */,
 			);
 			path = Presentation;
@@ -224,6 +229,15 @@
 				8B27CB8F28A55F7A0006F535 /* CharacterError.swift */,
 			);
 			path = Errors;
+			sourceTree = "<group>";
+		};
+		8B50497128ABB0640069635E /* Character creation */ = {
+			isa = PBXGroup;
+			children = (
+				8B50497628ABB0C40069635E /* CreateCharacterView.swift */,
+				8B50497428ABB0A90069635E /* CreateCharacterPresenter.swift */,
+			);
+			path = "Character creation";
 			sourceTree = "<group>";
 		};
 		8B8D418628A66A69008ED111 /* CoreData */ = {
@@ -373,8 +387,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B50497728ABB0C40069635E /* CreateCharacterView.swift in Sources */,
 				8B27CB8928A5499E0006F535 /* DeleteCharacterUseCase.swift in Sources */,
 				8B27CB8328A5492E0006F535 /* GetCharacterListUseCase.swift in Sources */,
+				8B50497528ABB0A90069635E /* CreateCharacterPresenter.swift in Sources */,
 				8B27CB8528A549740006F535 /* CreateCharacterUseCase.swift in Sources */,
 				8B27CB8D28A54A190006F535 /* Character.swift in Sources */,
 				8B27CB5328A5431B0006F535 /* CharacterArchive.xcdatamodeld in Sources */,

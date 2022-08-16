@@ -10,6 +10,7 @@ import Foundation
 class CharacterListPresenter: ObservableObject {
     
     @Published var characters: [CharacterModel.Response] = []
+    @Published var hasError: Bool = false
     @Published var errorMessage: String = ""
     private let getCharacterList: GetCharacterListUseCase
     
@@ -24,14 +25,17 @@ class CharacterListPresenter: ObservableObject {
         case .success(let characters):
             if characters.count == 0 {
                 self.errorMessage = "There are no characters yet"
+                self.hasError = true
                 
             } else {
                 self.characters = characters
                 self.errorMessage = ""
+                self.hasError = false
             }
             
         case .failure(_):
             self.errorMessage = "Could not obtain character list"
+            self.hasError = true
         }
     }
 }

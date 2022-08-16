@@ -66,10 +66,17 @@ class DefaultCharacterDataSource: CharacterDataSource {
     
     func create(characterRequest: CharacterModel.Request) async -> Result<Bool, CharacterError> {
         do {
-            let newContact = CharacterEntity(context: wrapper.getContext())
-            newContact.id = UUID();
-            newContact.name = characterRequest.name;
-            try wrapper.saveEntity(entity: newContact)
+            let newCharacter = CharacterEntity(context: wrapper.getContext())
+            newCharacter.id = UUID()
+            newCharacter.name = characterRequest.name
+            newCharacter.race = characterRequest.race
+            newCharacter.str = characterRequest.str
+            newCharacter.dex = characterRequest.dex
+            newCharacter.con = characterRequest.con
+            newCharacter.int = characterRequest.int
+            newCharacter.wis = characterRequest.wis
+            newCharacter.cha = characterRequest.cha
+            try wrapper.saveEntity(entity: newCharacter)
             return .success(true)
             
         } catch {

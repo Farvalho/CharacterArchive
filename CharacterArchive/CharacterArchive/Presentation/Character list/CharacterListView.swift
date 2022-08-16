@@ -16,19 +16,28 @@ struct CharacterListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                if presenter.errorMessage.count == 0 {
+                if presenter.hasError {
+                    Text(presenter.errorMessage)
+                    Spacer()
+                    
+                } else {
                     List {
                         ForEach(presenter.characters) { character in
                             Text(character.name)
                         }
                     }
-                } else {
-                    Text(presenter.errorMessage)
                 }
             }
-            .padding(.top, 40)
             .navigationBarTitle("Character Archive")
+            .padding(.top, 50)
             .onAppear(perform: onAppear)
+            .toolbar {
+                ToolbarItem(content: {
+                    NavigationLink(destination: CreateCharacterView()) {
+                        Image(systemName: "plus")
+                    }
+                })
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
