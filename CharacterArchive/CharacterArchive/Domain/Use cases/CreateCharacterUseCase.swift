@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CreateCharacterUseCase {
-    func execute(characterRequest: CharacterModel.Request) async -> Result<Bool, CharacterError>
+    func execute(character: CharacterModel.Request) async -> Result<Bool, CharacterError>
 }
 
 class DefaultCreateCharacterUseCase: CreateCharacterUseCase {
@@ -22,7 +22,7 @@ class DefaultCreateCharacterUseCase: CreateCharacterUseCase {
         self.repo = repository
     }
 
-    func execute(characterRequest: CharacterModel.Request) async -> Result<Bool, CharacterError> {
-        return await repo.createCharacter(characterRequest: characterRequest)
+    func execute(character: CharacterModel.Request) async -> Result<Bool, CharacterError> {
+        return await repo.createCharacter(character: character)
     }
 }

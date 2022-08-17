@@ -10,8 +10,8 @@ import Foundation
 protocol CharacterDataSource {
     func getSingle(id: UUID) async -> Result<CharacterModel.Response?, CharacterError>
     func getMultiple() async -> Result<[CharacterModel.Response], CharacterError>
-    func create(characterRequest: CharacterModel.Request) async -> Result<Bool, CharacterError>
-    func edit(id: UUID, data: CharacterModel.Request) async -> Result<Bool, CharacterError>
+    func create(character: CharacterModel.Request) async -> Result<Bool, CharacterError>
+    func edit(id: UUID, character: CharacterModel.Request) async -> Result<Bool, CharacterError>
     func delete(id: UUID) async -> Result<Bool, CharacterError>
 }
 
@@ -28,7 +28,7 @@ class DefaultCharacterDataSource: CharacterDataSource {
     }
     
     private func mapToCharacter(characterEntity: CharacterEntity) -> CharacterModel.Response {
-        return CharacterModel.Response(id: characterEntity.id!, name: characterEntity.name!)
+        return CharacterModel.Response(id: characterEntity.id!, name: characterEntity.name ?? "", race: characterEntity.race ?? "", charClass: characterEntity.charClass ?? "", str: characterEntity.str, dex: characterEntity.dex, con: characterEntity.con, int: characterEntity.int, wis: characterEntity.wis, cha: characterEntity.cha)
     }
     
     private func getMultipleCharacters() throws -> [CharacterEntity] {
@@ -44,7 +44,7 @@ class DefaultCharacterDataSource: CharacterDataSource {
     func getSingle(id: UUID) async -> Result<CharacterModel.Response?, CharacterError> {
         do {
             let data = try getSingleCharacter(id: id)
-            return .success(CharacterModel.Response(id: data.id!, name: data.name!))
+            return .success(CharacterModel.Response(id: data.id!, name: data.name ?? "", race: data.race ?? "", charClass: data.charClass ?? "", str: data.str, dex: data.dex, con: data.con, int: data.int, wis: data.wis, cha: data.cha))
             
         } catch {
             return .failure(.GetSingle)
@@ -64,18 +64,19 @@ class DefaultCharacterDataSource: CharacterDataSource {
         }
     }
     
-    func create(characterRequest: CharacterModel.Request) async -> Result<Bool, CharacterError> {
+    func create(character: CharacterModel.Request) async -> Result<Bool, CharacterError> {
         do {
             let newCharacter = CharacterEntity(context: wrapper.getContext())
             newCharacter.id = UUID()
-            newCharacter.name = characterRequest.name
-            newCharacter.race = characterRequest.race
-            newCharacter.str = characterRequest.str
-            newCharacter.dex = characterRequest.dex
-            newCharacter.con = characterRequest.con
-            newCharacter.int = characterRequest.int
-            newCharacter.wis = characterRequest.wis
-            newCharacter.cha = characterRequest.cha
+            newCharacter.name = character.name
+            newCharacter.race = character.race
+            newCharacter.charClass = character.charClass
+            newCharacter.str = character.str
+            newCharacter.dex = character.dex
+            newCharacter.con = character.con
+            newCharacter.int = character.int
+            newCharacter.wis = character.wis
+            newCharacter.cha = character.cha
             try wrapper.saveEntity(entity: newCharacter)
             return .success(true)
             
@@ -84,10 +85,18 @@ class DefaultCharacterDataSource: CharacterDataSource {
         }
     }
     
-    func edit(id: UUID, data: CharacterModel.Request) async -> Result<Bool, CharacterError> {
+    func edit(id: UUID, character: CharacterModel.Request) async -> Result<Bool, CharacterError> {
         do {
             let oldData = try getSingleCharacter(id: id)
-            oldData.name = data.name
+            oldData.name = character.name
+            oldData.race = character.race
+            oldData.charClass = character.charClass
+            oldData.str = character.str
+            oldData.dex = character.dex
+            oldData.con = character.con
+            oldData.int = character.int
+            oldData.wis = character.wis
+            oldData.cha = character.cha
             try wrapper.saveEntity(entity: oldData)
             return .success(true)
             
@@ -97,7 +106,7 @@ class DefaultCharacterDataSource: CharacterDataSource {
     }
     
     func delete(id: UUID) async -> Result<Bool, CharacterError> {
-        do{
+        do {
             let data = try getSingleCharacter(id: id)
             try wrapper.deleteEntity(entity: data)
             return .success(true)

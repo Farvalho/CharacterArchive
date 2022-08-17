@@ -1,18 +1,21 @@
 //
-//  CreateCharacterView.swift
+//  EditCharacterView.swift
 //  CharacterArchive
 //
-//  Created by Fábio Carvalho on 16/08/2022.
+//  Created by Fábio Carvalho on 17/08/2022.
 //
 
 import SwiftUI
 
-struct CreateCharacterView: View {
+struct EditCharacterView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @StateObject var presenter = CreateCharacterPresenter(
-        createCharacter: DefaultCreateCharacterUseCase()
+    @StateObject var presenter = EditCharacterPresenter(
+        getCharacter: DefaultGetCharacterUseCase(),
+        editCharacter: DefaultEditCharacterUseCase()
     )
+    
+    var characterID: UUID?
     
     var body: some View {
         ScrollView(.vertical) {
@@ -70,10 +73,11 @@ struct CreateCharacterView: View {
                     Text("Charisma")
                     TextField("10", value: $presenter.cha, formatter: NumberFormatter())
                 }
+                
             }
             .padding(.init(top: 20, leading: 40, bottom: 20, trailing: 40))
         }
-        .navigationTitle("Character creation")
+        .navigationTitle("Character edit")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(content: {
@@ -90,22 +94,35 @@ struct CreateCharacterView: View {
                 }
             })
         }
+        .onAppear(perform: getCharacter)
         .onChange(of: presenter.hasSaved) { _ in
             presentationMode.wrappedValue.dismiss()
         }
-    }
-}
-
-extension CreateCharacterView {
-    func saveCharacter() {
-        Task {
-            await presenter.createCharacter()
+        .alert(presenter.errorMessage, isPresented: $presenter.hasFatalError) {
+            Button("OK") {
+                presentationMode.wrappedValue.dismiss()
+            }
         }
     }
 }
 
-struct CreateCharacterView_Previews: PreviewProvider {
+extension EditCharacterView {
+    func getCharacter() {
+        presenter.characterID = characterID
+        Task {
+            await presenter.getCharacter()
+        }
+    }
+    
+    func saveCharacter() {
+        Task {
+            await presenter.editCharacter()
+        }
+    }
+}
+
+struct EditCharacterView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateCharacterView()
+        EditCharacterView()
     }
 }

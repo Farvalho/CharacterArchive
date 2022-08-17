@@ -10,8 +10,8 @@ import Foundation
 protocol CharacterRepository {
     func getCharacter(id: UUID) async -> Result<CharacterModel.Response?, CharacterError>
     func getCharacterList() async -> Result<[CharacterModel.Response], CharacterError>
-    func createCharacter(characterRequest: CharacterModel.Request) async -> Result<Bool, CharacterError>
-    func editCharacter(id: UUID, data: CharacterModel.Request) async -> Result<Bool, CharacterError>
+    func createCharacter(character: CharacterModel.Request) async -> Result<Bool, CharacterError>
+    func editCharacter(id: UUID, character: CharacterModel.Request) async -> Result<Bool, CharacterError>
     func deleteCharacter(id: UUID) async -> Result<Bool, CharacterError>
 }
 
@@ -34,12 +34,12 @@ class DefaultCharacterRepository: CharacterRepository {
         return await dataSource.getMultiple()
     }
     
-    func createCharacter(characterRequest: CharacterModel.Request) async -> Result<Bool, CharacterError> {
-        return await dataSource.create(characterRequest: characterRequest)
+    func createCharacter(character: CharacterModel.Request) async -> Result<Bool, CharacterError> {
+        return await dataSource.create(character: character)
     }
     
-    func editCharacter(id: UUID, data: CharacterModel.Request) async -> Result<Bool, CharacterError> {
-        return await dataSource.edit(id: id, data: data)
+    func editCharacter(id: UUID, character: CharacterModel.Request) async -> Result<Bool, CharacterError> {
+        return await dataSource.edit(id: id, character: character)
     }
     
     func deleteCharacter(id: UUID) async -> Result<Bool, CharacterError> {

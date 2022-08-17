@@ -10,21 +10,25 @@ import SwiftUI
 struct CharacterListView: View {
     
     @StateObject var presenter = CharacterListPresenter(
-        getCharacterList: DefaultGetCharacterListUseCase()
+        getCharacterList: DefaultGetCharacterListUseCase(),
+        deleteCharacter: DefaultDeleteCharacterUseCase()
     )
     
     var body: some View {
         NavigationView {
             VStack {
-                if presenter.hasError {
+                if presenter.hasInlineError {
                     Text(presenter.errorMessage)
                     Spacer()
                     
                 } else {
                     List {
                         ForEach(presenter.characters) { character in
-                            Text(character.name)
+                            NavigationLink(destination: EditCharacterView(characterID: character.id)) {
+                                Text("\(character.name), \(character.race) \(character.charClass)")
+                            }
                         }
+                        .onDelete(perform: deleteCharacter)
                     }
                 }
             }
@@ -40,13 +44,26 @@ struct CharacterListView: View {
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .alert(presenter.errorMessage, isPresented: $presenter.hasError) {
+            Button("OK") {
+                presenter.hasError = false
+            }
+        }
     }
 }
 
 extension CharacterListView {
-    func onAppear() {
+    private func onAppear() {
         Task {
             await presenter.getList()
+        }
+    }
+    
+    private func deleteCharacter(at offsets: IndexSet) {
+        if let character = offsets.map({presenter.characters[$0]}).first {
+            Task {
+                await presenter.deleteCharacter(id: character.id)
+            }
         }
     }
 }
