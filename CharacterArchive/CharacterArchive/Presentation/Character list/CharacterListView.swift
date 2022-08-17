@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CharacterListView: View {
+    @Environment(\.colorScheme) var colorScheme
     
     @StateObject var presenter = CharacterListPresenter(
         getCharacterList: DefaultGetCharacterListUseCase(),
@@ -30,10 +31,11 @@ struct CharacterListView: View {
                         }
                         .onDelete(perform: deleteCharacter)
                     }
+                    .padding(.top, 1)
                 }
             }
             .navigationBarTitle("Character Archive")
-            .padding(.top, 50)
+            .background(Color(UIColor.secondarySystemBackground))
             .onAppear(perform: onAppear)
             .toolbar {
                 ToolbarItem(content: {
@@ -42,12 +44,21 @@ struct CharacterListView: View {
                     }
                 })
             }
+            
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .accentColor(colorScheme == .dark ? .white : .black)
         .alert(presenter.errorMessage, isPresented: $presenter.hasError) {
             Button("OK") {
                 presenter.hasError = false
             }
+        }
+        .onAppear {
+            let appearance = UINavigationBarAppearance()
+            appearance.backgroundEffect = UIBlurEffect(style: .systemMaterial)
+            appearance.backgroundColor = UIColor(Color.yellow.opacity(0.7))
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
         }
     }
 }
