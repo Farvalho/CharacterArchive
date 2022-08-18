@@ -87,9 +87,9 @@ struct EditCharacterView: View {
                 }, label: {
                     Text("Save")
                 })
-                .alert(presenter.errorMessage, isPresented: $presenter.hasError) {
+                .alert(presenter.error.message, isPresented: $presenter.error.popup) {
                     Button("OK") {
-                        presenter.hasError = false
+                        presenter.error.solve()
                     }
                 }
             })
@@ -98,7 +98,7 @@ struct EditCharacterView: View {
         .onChange(of: presenter.hasSaved) { _ in
             presentationMode.wrappedValue.dismiss()
         }
-        .alert(presenter.errorMessage, isPresented: $presenter.hasFatalError) {
+        .alert(presenter.error.message, isPresented: $presenter.error.popup) {
             Button("OK") {
                 presentationMode.wrappedValue.dismiss()
             }

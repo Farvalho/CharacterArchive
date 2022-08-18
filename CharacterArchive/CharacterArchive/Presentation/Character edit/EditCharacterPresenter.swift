@@ -17,10 +17,8 @@ class EditCharacterPresenter: ObservableObject {
     @Published var int: Int16 = 10
     @Published var wis: Int16 = 10
     @Published var cha: Int16 = 10
+    @Published var error = PresentationError()
     @Published var hasSaved: Bool = false
-    @Published var hasError: Bool = false
-    @Published var hasFatalError: Bool = false
-    @Published var errorMessage: String = ""
     var characterID: UUID?
     private let getCharacter: GetCharacterUseCase
     private let editCharacter: EditCharacterUseCase
@@ -32,8 +30,7 @@ class EditCharacterPresenter: ObservableObject {
 
     func getCharacter() async {
         if characterID == nil {
-            self.errorMessage = "Could not find character in server"
-            self.hasFatalError = true
+            error = PresentationError("Could not find character in server", style: .FatalAlert)
             return
         }
         
@@ -41,8 +38,7 @@ class EditCharacterPresenter: ObservableObject {
         switch result {
         case .success(let character):
             if character == nil {
-                errorMessage = "Could not load character information"
-                hasError = true
+                error = PresentationError("Could not load character information", style: .FatalAlert)
                 
             } else {
                 name = character!.name
@@ -55,13 +51,11 @@ class EditCharacterPresenter: ObservableObject {
                 wis = character!.wis
                 cha = character!.cha
                 
-                errorMessage = ""
-                hasError = false
+                error.solve()
             }
             
         case .failure(_):
-            errorMessage = "Could not load character information"
-            hasError = true
+            error = PresentationError("Could not load character information", style: .FatalAlert)
         }
     }
     
@@ -83,22 +77,25 @@ class EditCharacterPresenter: ObservableObject {
                 hasSaved = true
                 
             case .failure(_):
-                errorMessage = "Could not save character information"
-                hasError = true
+                error = PresentationError("Could not save character information", style: .Alert)
             }
         }
     }
     
     func validate() -> Bool {
         if self.name.count == 0 || self.race.count == 0 || self.charClass.count == 0 {
-            self.errorMessage = "Some information seems to be missing"
-            self.hasError = true
+            error = PresentationError("Some information seems to be missing", style: .Alert)
             
         } else {
-            self.errorMessage = ""
-            self.hasError = false
+            error.solve()
         }
         
-        return !self.hasError
+        return error.style == .None
     }
+    
+//    func validateEmptyFields() -> Bool {
+//        if self.name.count == 0 || self.race.count == 0 || self.charClass.count == 0 {
+//            error = PresentationError("Some information seems to be missing", style: .Alert)
+//        }
+//    }
 }

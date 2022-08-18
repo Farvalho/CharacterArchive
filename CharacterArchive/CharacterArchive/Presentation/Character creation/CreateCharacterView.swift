@@ -83,9 +83,9 @@ struct CreateCharacterView: View {
                 }, label: {
                     Text("Save")
                 })
-                .alert(presenter.errorMessage, isPresented: $presenter.hasError) {
+                .alert(presenter.error.message, isPresented: $presenter.error.popup) {
                     Button("OK") {
-                        presenter.hasError = false
+                        presenter.error.solve()
                     }
                 }
             })

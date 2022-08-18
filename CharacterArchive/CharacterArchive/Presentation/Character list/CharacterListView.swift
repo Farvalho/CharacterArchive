@@ -18,8 +18,9 @@ struct CharacterListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                if presenter.hasInlineError {
-                    Text(presenter.errorMessage)
+                if presenter.error.style == .Inline {
+                    Text(presenter.error.message)
+                        .padding(.top, 20)
                     Spacer()
                     
                 } else {
@@ -35,7 +36,7 @@ struct CharacterListView: View {
                 }
             }
             .navigationBarTitle("Character Archive")
-            .background(Color(UIColor.secondarySystemBackground))
+            .padding(.top, 20)
             .onAppear(perform: onAppear)
             .toolbar {
                 ToolbarItem(content: {
@@ -48,9 +49,9 @@ struct CharacterListView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .accentColor(colorScheme == .dark ? .white : .black)
-        .alert(presenter.errorMessage, isPresented: $presenter.hasError) {
+        .alert(presenter.error.message, isPresented: $presenter.error.popup) {
             Button("OK") {
-                presenter.hasError = false
+                presenter.error.solve()
             }
         }
         .onAppear {

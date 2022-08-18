@@ -10,9 +10,7 @@ import Foundation
 class CharacterListPresenter: ObservableObject {
     
     @Published var characters: [CharacterModel.Response] = []
-    @Published var hasError: Bool = false
-    @Published var hasInlineError: Bool = false
-    @Published var errorMessage: String = ""
+    @Published var error = PresentationError()
     private let getCharacterList: GetCharacterListUseCase
     private let deleteCharacter: DeleteCharacterUseCase
     
@@ -27,18 +25,15 @@ class CharacterListPresenter: ObservableObject {
         switch result {
         case .success(let characters):
             if characters.count == 0 {
-                self.errorMessage = "There are no characters yet"
-                self.hasInlineError = true
+                self.error = PresentationError("There are no characters yet", style: .Inline)
                 
             } else {
                 self.characters = characters
-                self.errorMessage = ""
-                self.hasInlineError = false
+                self.error.solve()
             }
             
         case .failure(_):
-            self.errorMessage = "Could not obtain character list"
-            self.hasInlineError = true
+            self.error = PresentationError("Could not obtain character list", style: .Inline)
         }
     }
     
@@ -47,14 +42,12 @@ class CharacterListPresenter: ObservableObject {
         
         switch result {
         case .success(_):
-            self.errorMessage = ""
-            self.hasError = false
+            self.error.solve()
             
             await getList()
             
         case .failure(_):
-            self.errorMessage = "Could not delete character"
-            self.hasError = true
+            self.error = PresentationError("Could not delete character", style: .Alert)
         }
     }
 }

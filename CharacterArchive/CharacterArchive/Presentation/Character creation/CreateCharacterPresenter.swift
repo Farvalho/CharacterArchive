@@ -17,9 +17,8 @@ class CreateCharacterPresenter: ObservableObject {
     @Published var int: Int16 = 10
     @Published var wis: Int16 = 10
     @Published var cha: Int16 = 10
+    @Published var error = PresentationError()
     @Published var hasSaved: Bool = false
-    @Published var hasError: Bool = false
-    @Published var errorMessage: String = ""
     private let createCharacter: CreateCharacterUseCase
     
     init(createCharacter: CreateCharacterUseCase) {
@@ -45,22 +44,20 @@ class CreateCharacterPresenter: ObservableObject {
                 self.hasSaved = true
                 
             case.failure(_):
-                self.errorMessage = "Unable to save the character"
-                self.hasError = true
+                self.error = PresentationError("Unable to save the character", style: .Alert)
             }
         }
     }
     
     func validate() -> Bool {
         if self.name.count == 0 || self.race.count == 0 || self.charClass.count == 0 {
-            self.errorMessage = "Some information seems to be missing"
-            self.hasError = true
+            self.error = PresentationError("Some information seems to be missing", style: .Alert)
             
         } else {
-            self.errorMessage = ""
-            self.hasError = false
+            self.error.solve()
         }
         
-        return !self.hasError
+        return self.error.style == .None
     }
+    
 }
