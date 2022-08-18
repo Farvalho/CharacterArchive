@@ -11,12 +11,12 @@ class EditCharacterPresenter: ObservableObject {
     @Published var name = ""
     @Published var race = ""
     @Published var charClass = ""
-    @Published var str: Int16 = 10
-    @Published var dex: Int16 = 10
-    @Published var con: Int16 = 10
-    @Published var int: Int16 = 10
-    @Published var wis: Int16 = 10
-    @Published var cha: Int16 = 10
+    @Published var str = ""
+    @Published var dex = ""
+    @Published var con = ""
+    @Published var int = ""
+    @Published var wis = ""
+    @Published var cha = ""
     @Published var error = PresentationError()
     @Published var hasSaved: Bool = false
     var characterID: UUID?
@@ -27,7 +27,7 @@ class EditCharacterPresenter: ObservableObject {
         self.getCharacter = getCharacter
         self.editCharacter = editCharacter
     }
-
+    
     func getCharacter() async {
         if characterID == nil {
             error = PresentationError("Could not find character in server", style: .FatalAlert)
@@ -44,12 +44,12 @@ class EditCharacterPresenter: ObservableObject {
                 name = character!.name
                 race = character!.race
                 charClass = character!.charClass
-                str = character!.str
-                dex = character!.dex
-                con = character!.con
-                int = character!.int
-                wis = character!.wis
-                cha = character!.cha
+                str = String(character!.str)
+                dex = String(character!.dex)
+                con = String(character!.con)
+                int = String(character!.int)
+                wis = String(character!.wis)
+                cha = String(character!.cha)
                 
                 error.solve()
             }
@@ -64,12 +64,12 @@ class EditCharacterPresenter: ObservableObject {
             let character = CharacterModel.Request(name: name,
                                                    race: race,
                                                    charClass: charClass,
-                                                   str: str,
-                                                   dex: dex,
-                                                   con: con,
-                                                   int: int,
-                                                   wis: wis,
-                                                   cha: cha)
+                                                   str: Int16(str)!,
+                                                   dex: Int16(dex)!,
+                                                   con: Int16(con)!,
+                                                   int: Int16(int)!,
+                                                   wis: Int16(wis)!,
+                                                   cha: Int16(cha)!)
             
             let result = await editCharacter.execute(id: characterID!, character: character)
             switch result {
@@ -83,19 +83,70 @@ class EditCharacterPresenter: ObservableObject {
     }
     
     func validate() -> Bool {
-        if self.name.count == 0 || self.race.count == 0 || self.charClass.count == 0 {
-            error = PresentationError("Some information seems to be missing", style: .Alert)
-            
-        } else {
-            error.solve()
+        if !validateEmptyFields() {
+            return false
         }
         
-        return error.style == .None
+        if !validateValue(str) {
+            return false
+        }
+        
+        if !validateValue(dex) {
+            return false
+        }
+        
+        if !validateValue(con) {
+            return false
+        }
+        
+        if !validateValue(int) {
+            return false
+        }
+        
+        if !validateValue(wis) {
+            return false
+        }
+        
+        if !validateValue(cha) {
+            return false
+        }
+            
+        self.error.solve()
+        return true
     }
     
-//    func validateEmptyFields() -> Bool {
-//        if self.name.count == 0 || self.race.count == 0 || self.charClass.count == 0 {
-//            error = PresentationError("Some information seems to be missing", style: .Alert)
-//        }
-//    }
+    func validateEmptyFields() -> Bool {
+        if self.name.count == 0 ||
+            self.race.count == 0 ||
+            self.charClass.count == 0 ||
+            self.str.count == 0 ||
+            self.dex.count == 0 ||
+            self.con.count == 0 ||
+            self.int.count == 0 ||
+            self.wis.count == 0 ||
+            self.cha.count == 0 {
+            
+            error = PresentationError("Some information seems to be missing", style: .Alert)
+            return false
+        }
+        
+        return true
+    }
+    
+    func validateValue(_ valueString: String) -> Bool {
+        if let value = Int(valueString) {
+            if value > 0 && value <= 20 {
+                return true
+            }
+        }
+        
+        error = PresentationError("Some ability values seem to be wrong", style: .Alert)
+        return false
+    }
+    
+    func sanitizeNumericText(_ newValue: String) -> String {
+        let filtered = newValue.filter { "0123456789".contains($0) }
+        return filtered
+    }
+    
 }
