@@ -19,8 +19,47 @@ struct EditCharacterView: View {
     var characterID: UUID?
     
     var body: some View {
+        VStack {
+            switch presenter.loadingState {
+            case .idle:
+                CharacterForm
+                
+            case .loading:
+                LoadingView()
+            }
+        }
+        .navigationTitle("Character edit")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(content: {
+                Button(action: {
+                    saveCharacter()
+                    
+                }, label: {
+                    Text("Save")
+                })
+                .alert(presenter.error.message, isPresented: $presenter.error.popup) {
+                    Button("OK") {
+                        presenter.error.solve()
+                    }
+                }
+            })
+        }
+        .onAppear(perform: getCharacter)
+        .onChange(of: presenter.hasSaved) { _ in
+            presentationMode.wrappedValue.dismiss()
+        }
+        .alert(presenter.error.message, isPresented: $presenter.error.popup) {
+            Button("OK") {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
+    }
+    
+    var CharacterForm: some View {
         ScrollView(.vertical) {
             VStack(spacing: 30) {
+                
                 //Name
                 VStack(alignment: .leading) {
                     Text("Name")
@@ -116,35 +155,8 @@ struct EditCharacterView: View {
                             }
                         }
                 }
-                
             }
             .padding(.init(top: 20, leading: 40, bottom: 20, trailing: 40))
-        }
-        .navigationTitle("Character edit")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(content: {
-                Button(action: {
-                    saveCharacter()
-                    
-                }, label: {
-                    Text("Save")
-                })
-                .alert(presenter.error.message, isPresented: $presenter.error.popup) {
-                    Button("OK") {
-                        presenter.error.solve()
-                    }
-                }
-            })
-        }
-        .onAppear(perform: getCharacter)
-        .onChange(of: presenter.hasSaved) { _ in
-            presentationMode.wrappedValue.dismiss()
-        }
-        .alert(presenter.error.message, isPresented: $presenter.error.popup) {
-            Button("OK") {
-                presentationMode.wrappedValue.dismiss()
-            }
         }
     }
 }

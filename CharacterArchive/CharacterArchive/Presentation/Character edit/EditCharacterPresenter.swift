@@ -18,6 +18,7 @@ class EditCharacterPresenter: ObservableObject {
     @Published var wis = ""
     @Published var cha = ""
     @Published var error = PresentationError()
+    @Published var loadingState: LoadingState = .idle
     @Published var hasSaved: Bool = false
     var characterID: UUID?
     private let getCharacter: GetCharacterUseCase
@@ -28,13 +29,18 @@ class EditCharacterPresenter: ObservableObject {
         self.editCharacter = editCharacter
     }
     
+    @MainActor
     func getCharacter() async {
         if characterID == nil {
             error = PresentationError("Could not find character in server", style: .FatalAlert)
             return
         }
         
+        loadingState = .loading
+        sleep(3)
         let result = await getCharacter.execute(id: characterID!)
+        loadingState = .idle
+        
         switch result {
         case .success(let character):
             if character == nil {
@@ -71,7 +77,10 @@ class EditCharacterPresenter: ObservableObject {
                                                    wis: Int16(wis)!,
                                                    cha: Int16(cha)!)
             
+            loadingState = .loading
             let result = await editCharacter.execute(id: characterID!, character: character)
+            loadingState = .idle
+            
             switch result {
             case .success(_):
                 hasSaved = true

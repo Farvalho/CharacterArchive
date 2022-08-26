@@ -7,14 +7,14 @@
 
 import Foundation
 
-enum PresentationErrorType: Error {
+enum PresentationErrorType {
     case None
     case Inline
     case Alert
     case FatalAlert
 }
 
-struct PresentationError {
+struct PresentationError: Error {
     var style: PresentationErrorType
     var message: String
     var popup: Bool

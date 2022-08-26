@@ -44,6 +44,8 @@ class DefaultCharacterDataSource: CharacterDataSource {
     func getSingle(id: UUID) async -> Result<CharacterModel.Response?, CharacterError> {
         do {
             let data = try getSingleCharacter(id: id)
+            //debug
+            sleep(10)
             return .success(CharacterModel.Response(id: data.id!, name: data.name ?? "", race: data.race ?? "", charClass: data.charClass ?? "", str: data.str, dex: data.dex, con: data.con, int: data.int, wis: data.wis, cha: data.cha))
             
         } catch {
