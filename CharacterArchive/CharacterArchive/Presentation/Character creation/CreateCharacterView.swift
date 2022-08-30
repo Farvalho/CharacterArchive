@@ -16,105 +16,14 @@ struct CreateCharacterView: View {
     )
     
     var body: some View {
-        ScrollView(.vertical) {
-            VStack(spacing: 30) {
-                //Name
-                VStack(alignment: .leading) {
-                    Text("Name")
-                    TextField("John Doe", text: $presenter.name)
-                }
+        VStack {
+            switch presenter.loadingState {
+            case .idle:
+                CharacterForm
                 
-                //Race
-                VStack(alignment: .leading) {
-                    Text("Race")
-                    TextField("Human", text: $presenter.race)
-                }
-                
-                //Class
-                VStack(alignment: .leading) {
-                    Text("Class")
-                    TextField("Sorcerer", text: $presenter.charClass)
-                }
-                
-                //Strength
-                VStack(alignment: .leading) {
-                    Text("Strength")
-                    TextField("10", text: $presenter.str)
-                        .keyboardType(.numberPad)
-                        .onReceive(Just(presenter.str)) { newValue in
-                            let filtered = presenter.sanitizeNumericText(newValue)
-                            if filtered != presenter.str {
-                                presenter.str = filtered
-                            }
-                        }
-                }
-                
-                //Dexterity
-                VStack(alignment: .leading) {
-                    Text("Dexterity")
-                    TextField("10", text: $presenter.dex)
-                        .keyboardType(.numberPad)
-                        .onReceive(Just(presenter.dex)) { newValue in
-                            let filtered = presenter.sanitizeNumericText(newValue)
-                            if filtered != presenter.dex {
-                                presenter.dex = filtered
-                            }
-                        }
-                }
-                
-                //Constitution
-                VStack(alignment: .leading) {
-                    Text("Constitution")
-                    TextField("10", text: $presenter.con)
-                        .keyboardType(.numberPad)
-                        .onReceive(Just(presenter.con)) { newValue in
-                            let filtered = presenter.sanitizeNumericText(newValue)
-                            if filtered != presenter.con {
-                                presenter.con = filtered
-                            }
-                        }
-                }
-                
-                //Intelligence
-                VStack(alignment: .leading) {
-                    Text("Intelligence")
-                    TextField("10", text: $presenter.int)
-                        .keyboardType(.numberPad)
-                        .onReceive(Just(presenter.int)) { newValue in
-                            let filtered = presenter.sanitizeNumericText(newValue)
-                            if filtered != presenter.int {
-                                presenter.int = filtered
-                            }
-                        }
-                }
-                
-                //Wisdom
-                VStack(alignment: .leading) {
-                    Text("Wisdom")
-                    TextField("10", text: $presenter.wis)
-                        .keyboardType(.numberPad)
-                        .onReceive(Just(presenter.wis)) { newValue in
-                            let filtered = presenter.sanitizeNumericText(newValue)
-                            if filtered != presenter.wis {
-                                presenter.wis = filtered
-                            }
-                        }
-                }
-                
-                //Charisma
-                VStack(alignment: .leading) {
-                    Text("Charisma")
-                    TextField("10", text: $presenter.cha)
-                        .keyboardType(.numberPad)
-                        .onReceive(Just(presenter.cha)) { newValue in
-                            let filtered = presenter.sanitizeNumericText(newValue)
-                            if filtered != presenter.cha {
-                                presenter.cha = filtered
-                            }
-                        }
-                }
+            case .loading:
+                LoadingView()
             }
-            .padding(.init(top: 20, leading: 40, bottom: 20, trailing: 40))
         }
         .navigationTitle("Character creation")
         .navigationBarTitleDisplayMode(.inline)
@@ -135,6 +44,41 @@ struct CreateCharacterView: View {
         }
         .onChange(of: presenter.hasSaved) { _ in
             presentationMode.wrappedValue.dismiss()
+        }
+    }
+    
+    var CharacterForm: some View {
+        ScrollView(.vertical) {
+            VStack(spacing: 30) {
+                
+                //Name
+                CharacterFormTextfield(content: $presenter.str, title: "Name", placeholder: "John Doe")
+                
+                //Race
+                CharacterFormTextfield(content: $presenter.str, title: "Race", placeholder: "Human")
+                
+                //Class
+                CharacterFormTextfield(content: $presenter.str, title: "Class", placeholder: "Warrior")
+                
+                //Strength
+                CharacterFormTextfield(content: $presenter.str, title: "Strength", placeholder: "10", isNumeric: true)
+                
+                //Dexterity
+                CharacterFormTextfield(content: $presenter.str, title: "Dexterity", placeholder: "10", isNumeric: true)
+                
+                //Constitution
+                CharacterFormTextfield(content: $presenter.str, title: "Constitution", placeholder: "10", isNumeric: true)
+                
+                //Intelligence
+                CharacterFormTextfield(content: $presenter.str, title: "Intelligence", placeholder: "10", isNumeric: true)
+                
+                //Wisdom
+                CharacterFormTextfield(content: $presenter.str, title: "Wisdom", placeholder: "10", isNumeric: true)
+                
+                //Charisma
+                CharacterFormTextfield(content: $presenter.str, title: "Charisma", placeholder: "10", isNumeric: true)
+            }
+            .padding(.vertical, 20)
         }
     }
 }

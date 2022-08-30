@@ -61,102 +61,33 @@ struct EditCharacterView: View {
             VStack(spacing: 30) {
                 
                 //Name
-                VStack(alignment: .leading) {
-                    Text("Name")
-                    TextField("John Doe", text: $presenter.name)
-                }
+                CharacterFormTextfield(content: $presenter.str, title: "Name", placeholder: "John Doe")
                 
                 //Race
-                VStack(alignment: .leading) {
-                    Text("Race")
-                    TextField("Human", text: $presenter.race)
-                }
+                CharacterFormTextfield(content: $presenter.str, title: "Race", placeholder: "Human")
                 
                 //Class
-                VStack(alignment: .leading) {
-                    Text("Class")
-                    TextField("Sorcerer", text: $presenter.charClass)
-                }
+                CharacterFormTextfield(content: $presenter.str, title: "Class", placeholder: "Warrior")
                 
                 //Strength
-                VStack(alignment: .leading) {
-                    Text("Strength")
-                    TextField("10", text: $presenter.str)
-                        .keyboardType(.numberPad)
-                        .onReceive(Just(presenter.str)) { newValue in
-                            let filtered = presenter.sanitizeNumericText(newValue)
-                            if filtered != presenter.str {
-                                presenter.str = filtered
-                            }
-                        }
-                }
+                CharacterFormTextfield(content: $presenter.str, title: "Strength", placeholder: "10", isNumeric: true)
                 
                 //Dexterity
-                VStack(alignment: .leading) {
-                    Text("Dexterity")
-                    TextField("10", text: $presenter.dex)
-                        .keyboardType(.numberPad)
-                        .onReceive(Just(presenter.dex)) { newValue in
-                            let filtered = presenter.sanitizeNumericText(newValue)
-                            if filtered != presenter.dex {
-                                presenter.dex = filtered
-                            }
-                        }
-                }
+                CharacterFormTextfield(content: $presenter.str, title: "Dexterity", placeholder: "10", isNumeric: true)
                 
                 //Constitution
-                VStack(alignment: .leading) {
-                    Text("Constitution")
-                    TextField("10", text: $presenter.con)
-                        .keyboardType(.numberPad)
-                        .onReceive(Just(presenter.con)) { newValue in
-                            let filtered = presenter.sanitizeNumericText(newValue)
-                            if filtered != presenter.con {
-                                presenter.con = filtered
-                            }
-                        }
-                }
+                CharacterFormTextfield(content: $presenter.str, title: "Constitution", placeholder: "10", isNumeric: true)
                 
                 //Intelligence
-                VStack(alignment: .leading) {
-                    Text("Intelligence")
-                    TextField("10", text: $presenter.int)
-                        .keyboardType(.numberPad)
-                        .onReceive(Just(presenter.int)) { newValue in
-                            let filtered = presenter.sanitizeNumericText(newValue)
-                            if filtered != presenter.int {
-                                presenter.int = filtered
-                            }
-                        }
-                }
+                CharacterFormTextfield(content: $presenter.str, title: "Intelligence", placeholder: "10", isNumeric: true)
                 
                 //Wisdom
-                VStack(alignment: .leading) {
-                    Text("Wisdom")
-                    TextField("10", text: $presenter.wis)
-                        .keyboardType(.numberPad)
-                        .onReceive(Just(presenter.wis)) { newValue in
-                            let filtered = presenter.sanitizeNumericText(newValue)
-                            if filtered != presenter.wis {
-                                presenter.wis = filtered
-                            }
-                        }
-                }
+                CharacterFormTextfield(content: $presenter.str, title: "Wisdom", placeholder: "10", isNumeric: true)
                 
                 //Charisma
-                VStack(alignment: .leading) {
-                    Text("Charisma")
-                    TextField("10", text: $presenter.cha)
-                        .keyboardType(.numberPad)
-                        .onReceive(Just(presenter.cha)) { newValue in
-                            let filtered = presenter.sanitizeNumericText(newValue)
-                            if filtered != presenter.cha {
-                                presenter.cha = filtered
-                            }
-                        }
-                }
+                CharacterFormTextfield(content: $presenter.str, title: "Charisma", placeholder: "10", isNumeric: true)
             }
-            .padding(.init(top: 20, leading: 40, bottom: 20, trailing: 40))
+            .padding(.vertical, 20)
         }
     }
 }

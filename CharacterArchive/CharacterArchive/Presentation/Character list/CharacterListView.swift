@@ -48,7 +48,6 @@ struct CharacterListView: View {
             
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        .accentColor(colorScheme == .dark ? .white : .black)
         .alert(presenter.error.message, isPresented: $presenter.error.popup) {
             Button("OK") {
                 presenter.error.solve()

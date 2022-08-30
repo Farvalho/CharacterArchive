@@ -18,8 +18,8 @@ class EditCharacterPresenter: ObservableObject {
     @Published var wis = ""
     @Published var cha = ""
     @Published var error = PresentationError()
-    @Published var loadingState: LoadingState = .idle
     @Published var hasSaved: Bool = false
+    @Published var loadingState: LoadingState = .idle
     var characterID: UUID?
     private let getCharacter: GetCharacterUseCase
     private let editCharacter: EditCharacterUseCase
@@ -37,7 +37,6 @@ class EditCharacterPresenter: ObservableObject {
         }
         
         loadingState = .loading
-        sleep(3)
         let result = await getCharacter.execute(id: characterID!)
         loadingState = .idle
         
@@ -151,11 +150,6 @@ class EditCharacterPresenter: ObservableObject {
         
         error = PresentationError("Some ability values seem to be wrong", style: .Alert)
         return false
-    }
-    
-    func sanitizeNumericText(_ newValue: String) -> String {
-        let filtered = newValue.filter { "0123456789".contains($0) }
-        return filtered
     }
     
 }

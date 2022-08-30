@@ -11,6 +11,7 @@ class CharacterListPresenter: ObservableObject {
     
     @Published var characters: [CharacterModel.Response] = []
     @Published var error = PresentationError()
+    @Published var loadingState: LoadingState = .idle
     private let getCharacterList: GetCharacterListUseCase
     private let deleteCharacter: DeleteCharacterUseCase
     
@@ -20,7 +21,9 @@ class CharacterListPresenter: ObservableObject {
     }
     
     func getList() async {
+        loadingState = .loading
         let result = await getCharacterList.execute()
+        loadingState = .idle
         
         switch result {
         case .success(let characters):
@@ -38,7 +41,9 @@ class CharacterListPresenter: ObservableObject {
     }
     
     func deleteCharacter(id: UUID) async {
+        loadingState = .loading
         let result = await deleteCharacter.execute(id: id)
+        loadingState = .idle
         
         switch result {
         case .success(_):

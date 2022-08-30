@@ -19,6 +19,7 @@ class CreateCharacterPresenter: ObservableObject {
     @Published var cha = ""
     @Published var error = PresentationError()
     @Published var hasSaved: Bool = false
+    @Published var loadingState: LoadingState = .idle
     private let createCharacter: CreateCharacterUseCase
     
     init(createCharacter: CreateCharacterUseCase) {
@@ -37,7 +38,9 @@ class CreateCharacterPresenter: ObservableObject {
                                                    wis: Int16(wis)!,
                                                    cha: Int16(cha)!)
             
+            loadingState = .loading
             let result = await createCharacter.execute(character: character)
+            loadingState = .idle
             
             switch result {
             case .success(_):
@@ -109,11 +112,6 @@ class CreateCharacterPresenter: ObservableObject {
         
         error = PresentationError("Some ability values seem to be wrong", style: .Alert)
         return false
-    }
-    
-    func sanitizeNumericText(_ newValue: String) -> String {
-        let filtered = newValue.filter { "0123456789".contains($0) }
-        return filtered
     }
     
 }
