@@ -32,6 +32,9 @@
 		8B50497728ABB0C40069635E /* CreateCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B50497628ABB0C40069635E /* CreateCharacterView.swift */; };
 		8B7B66C828BE5E1900237C40 /* CharacterFormTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B66C728BE5E1900237C40 /* CharacterFormTextfield.swift */; };
 		8B8D418928A66A85008ED111 /* CharacterDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8D418828A66A85008ED111 /* CharacterDataSource.swift */; };
+		8BCEA0FC28C25836009701AE /* CharacterListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCEA0FB28C25836009701AE /* CharacterListRowView.swift */; };
+		8BCEA0FF28C2591F009701AE /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCEA0FE28C2591F009701AE /* Utility.swift */; };
+		8BCEA10128C266E1009701AE /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCEA10028C266E1009701AE /* ViewExtension.swift */; };
 		8BDB6A7828B7D63000F2227D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDB6A7728B7D63000F2227D /* LoadingView.swift */; };
 		8BDB6A7A28B7EB7900F2227D /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDB6A7928B7EB7900F2227D /* LoadingState.swift */; };
 /* End PBXBuildFile section */
@@ -82,6 +85,9 @@
 		8B50497628ABB0C40069635E /* CreateCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCharacterView.swift; sourceTree = "<group>"; };
 		8B7B66C728BE5E1900237C40 /* CharacterFormTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterFormTextfield.swift; sourceTree = "<group>"; };
 		8B8D418828A66A85008ED111 /* CharacterDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDataSource.swift; sourceTree = "<group>"; };
+		8BCEA0FB28C25836009701AE /* CharacterListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListRowView.swift; sourceTree = "<group>"; };
+		8BCEA0FE28C2591F009701AE /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		8BCEA10028C266E1009701AE /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		8BDB6A7728B7D63000F2227D /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		8BDB6A7928B7EB7900F2227D /* LoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -206,6 +212,7 @@
 			children = (
 				8B27CB7928A5473B0006F535 /* CharacterListView.swift */,
 				8B27CB7B28A547F60006F535 /* CharacterListPresenter.swift */,
+				8BCEA0FB28C25836009701AE /* CharacterListRowView.swift */,
 			);
 			path = "Character list";
 			sourceTree = "<group>";
@@ -251,6 +258,8 @@
 			children = (
 				8B30AECF28AE888100D0841C /* PresentationError.swift */,
 				8BDB6A7928B7EB7900F2227D /* LoadingState.swift */,
+				8BCEA0FE28C2591F009701AE /* Utility.swift */,
+				8BCEA10028C266E1009701AE /* ViewExtension.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -433,6 +442,7 @@
 				8B27CB8928A5499E0006F535 /* DeleteCharacterUseCase.swift in Sources */,
 				8B27CB8328A5492E0006F535 /* GetCharacterListUseCase.swift in Sources */,
 				8B50497528ABB0A90069635E /* CreateCharacterPresenter.swift in Sources */,
+				8BCEA10128C266E1009701AE /* ViewExtension.swift in Sources */,
 				8B27CB8528A549740006F535 /* CreateCharacterUseCase.swift in Sources */,
 				8B27CB8D28A54A190006F535 /* Character.swift in Sources */,
 				8B27CB5328A5431B0006F535 /* CharacterArchive.xcdatamodeld in Sources */,
@@ -448,6 +458,8 @@
 				8B27CB7A28A5473B0006F535 /* CharacterListView.swift in Sources */,
 				8B8D418928A66A85008ED111 /* CharacterDataSource.swift in Sources */,
 				8B3480F228AD03230075FC4A /* EditCharacterPresenter.swift in Sources */,
+				8BCEA0FC28C25836009701AE /* CharacterListRowView.swift in Sources */,
+				8BCEA0FF28C2591F009701AE /* Utility.swift in Sources */,
 				8B3480F428AD032D0075FC4A /* EditCharacterView.swift in Sources */,
 				8B27CB4728A543180006F535 /* CharacterArchiveApp.swift in Sources */,
 				8B7B66C828BE5E1900237C40 /* CharacterFormTextfield.swift in Sources */,

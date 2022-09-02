@@ -24,6 +24,7 @@ struct CharacterFormTextfield: View {
             }
             
             TextField(placeholder ?? "", text: $content)
+                .disableAutocorrection(true)
                 .keyboardType(isNumeric ? .numberPad : .default)
                 .onReceive(Just(content)) { newValue in
                     if isNumeric {
@@ -50,10 +51,10 @@ extension CharacterFormTextfield {
     }
 }
 
-//struct CharacterFormTextfield_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CharacterFormTextfield(content: "10" as Binding<String>, title: "Strength", placeholder: "10")
-//            .previewLayout(.sizeThatFits)
-//            .padding()
-//    }
-//}
+struct CharacterFormTextfield_Previews: PreviewProvider {
+    static var previews: some View {
+        CharacterFormTextfield(content: .constant("10"), title: "Strength", placeholder: "10")
+            .previewLayout(.sizeThatFits)
+            .padding()
+    }
+}

@@ -61,31 +61,31 @@ struct EditCharacterView: View {
             VStack(spacing: 30) {
                 
                 //Name
-                CharacterFormTextfield(content: $presenter.str, title: "Name", placeholder: "John Doe")
+                CharacterFormTextfield(content: $presenter.name, title: "Name", placeholder: "John Doe")
                 
                 //Race
-                CharacterFormTextfield(content: $presenter.str, title: "Race", placeholder: "Human")
+                CharacterFormTextfield(content: $presenter.race, title: "Race", placeholder: "Human")
                 
                 //Class
-                CharacterFormTextfield(content: $presenter.str, title: "Class", placeholder: "Warrior")
+                CharacterFormTextfield(content: $presenter.charClass, title: "Class", placeholder: "Warrior")
                 
                 //Strength
                 CharacterFormTextfield(content: $presenter.str, title: "Strength", placeholder: "10", isNumeric: true)
                 
                 //Dexterity
-                CharacterFormTextfield(content: $presenter.str, title: "Dexterity", placeholder: "10", isNumeric: true)
+                CharacterFormTextfield(content: $presenter.dex, title: "Dexterity", placeholder: "10", isNumeric: true)
                 
                 //Constitution
-                CharacterFormTextfield(content: $presenter.str, title: "Constitution", placeholder: "10", isNumeric: true)
+                CharacterFormTextfield(content: $presenter.con, title: "Constitution", placeholder: "10", isNumeric: true)
                 
                 //Intelligence
-                CharacterFormTextfield(content: $presenter.str, title: "Intelligence", placeholder: "10", isNumeric: true)
+                CharacterFormTextfield(content: $presenter.int, title: "Intelligence", placeholder: "10", isNumeric: true)
                 
                 //Wisdom
-                CharacterFormTextfield(content: $presenter.str, title: "Wisdom", placeholder: "10", isNumeric: true)
+                CharacterFormTextfield(content: $presenter.wis, title: "Wisdom", placeholder: "10", isNumeric: true)
                 
                 //Charisma
-                CharacterFormTextfield(content: $presenter.str, title: "Charisma", placeholder: "10", isNumeric: true)
+                CharacterFormTextfield(content: $presenter.cha, title: "Charisma", placeholder: "10", isNumeric: true)
             }
             .padding(.vertical, 20)
         }

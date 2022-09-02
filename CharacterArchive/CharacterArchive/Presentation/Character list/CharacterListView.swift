@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CharacterListView: View {
-    @Environment(\.colorScheme) var colorScheme
     
     @StateObject var presenter = CharacterListPresenter(
         getCharacterList: DefaultGetCharacterListUseCase(),
@@ -20,23 +19,21 @@ struct CharacterListView: View {
             VStack {
                 if presenter.error.style == .Inline {
                     Text(presenter.error.message)
-                        .padding(.top, 20)
+                        .padding(.top, 50)
                     Spacer()
                     
                 } else {
                     List {
                         ForEach(presenter.characters) { character in
                             NavigationLink(destination: EditCharacterView(characterID: character.id)) {
-                                Text("\(character.name), \(character.race) \(character.charClass)")
+                                CharacterListRowView(character: character)
                             }
                         }
                         .onDelete(perform: deleteCharacter)
                     }
-                    .padding(.top, 1)
                 }
-            }
+            } //: VStack
             .navigationBarTitle("Character Archive")
-            .padding(.top, 20)
             .onAppear(perform: onAppear)
             .toolbar {
                 ToolbarItem(content: {
@@ -45,21 +42,14 @@ struct CharacterListView: View {
                     }
                 })
             }
-            
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .alert(presenter.error.message, isPresented: $presenter.error.popup) {
-            Button("OK") {
-                presenter.error.solve()
+            .alert(presenter.error.message, isPresented: $presenter.error.popup) {
+                Button("OK") {
+                    presenter.error.solve()
+                }
             }
-        }
-        .onAppear {
-            let appearance = UINavigationBarAppearance()
-            appearance.backgroundEffect = UIBlurEffect(style: .systemMaterial)
-            appearance.backgroundColor = UIColor(Color.yellow.opacity(0.7))
-            UINavigationBar.appearance().standardAppearance = appearance
-            UINavigationBar.appearance().scrollEdgeAppearance = appearance
-        }
+            
+        } //: NavigationView
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
@@ -82,5 +72,6 @@ extension CharacterListView {
 struct CharacterListView_Previews: PreviewProvider {
     static var previews: some View {
         CharacterListView()
+            .preferredColorScheme(.dark)
     }
 }
