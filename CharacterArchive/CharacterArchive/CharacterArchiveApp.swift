@@ -9,10 +9,12 @@ import SwiftUI
 
 @main
 struct CharacterArchiveApp: App {
+    @AppStorage("isDarkMode") var isDarkMode: Bool = false
 
     var body: some Scene {
         WindowGroup {
             CharacterListView()
+                .preferredColorScheme(isDarkMode ? .dark : .light)
         }
     }
 }

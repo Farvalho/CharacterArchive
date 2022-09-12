@@ -12,7 +12,8 @@ struct CreateCharacterView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @StateObject var presenter = CreateCharacterPresenter(
-        createCharacter: DefaultCreateCharacterUseCase()
+        createCharacter: DefaultCreateCharacterUseCase(),
+        getGeneratedName: DefaultGetGeneratedNameUseCase()
     )
     
     var body: some View {
@@ -42,6 +43,7 @@ struct CreateCharacterView: View {
                 }
             })
         }
+        .onAppear(perform: getGeneratedName)
         .onChange(of: presenter.hasSaved) { _ in
             presentationMode.wrappedValue.dismiss()
         }
@@ -84,6 +86,12 @@ struct CreateCharacterView: View {
 }
 
 extension CreateCharacterView {
+    func getGeneratedName() {
+        Task {
+            await presenter.getGeneratedName()
+        }
+    }
+    
     func saveCharacter() {
         Task {
             await presenter.createCharacter()

@@ -21,9 +21,24 @@ class CreateCharacterPresenter: ObservableObject {
     @Published var hasSaved: Bool = false
     @Published var loadingState: LoadingState = .idle
     private let createCharacter: CreateCharacterUseCase
+    private let getGeneratedName: GetGeneratedNameUseCase
     
-    init(createCharacter: CreateCharacterUseCase) {
+    init(createCharacter: CreateCharacterUseCase, getGeneratedName: GetGeneratedNameUseCase) {
         self.createCharacter = createCharacter
+        self.getGeneratedName = getGeneratedName
+    }
+    
+    func getGeneratedName() async {
+        loadingState = .loading
+        let result = await getGeneratedName.getGeneratedName(gender: .male, race: .dwarf)
+        loadingState = .idle
+        
+        switch result {
+        case .success(let generated):
+            name = generated.name
+        case .failure(_):
+            self.error = PresentationError("Unable to get generated name", style: .Alert)
+        }
     }
     
     func createCharacter() async {

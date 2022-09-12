@@ -30,6 +30,15 @@
 		8B3480F428AD032D0075FC4A /* EditCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3480F328AD032D0075FC4A /* EditCharacterView.swift */; };
 		8B50497528ABB0A90069635E /* CreateCharacterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B50497428ABB0A90069635E /* CreateCharacterPresenter.swift */; };
 		8B50497728ABB0C40069635E /* CreateCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B50497628ABB0C40069635E /* CreateCharacterView.swift */; };
+		8B6B97E528CF78F200604364 /* GeneratedName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B97E428CF78F200604364 /* GeneratedName.swift */; };
+		8B6B97E828CF7A5100604364 /* GeneratedNameEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B97E728CF7A5100604364 /* GeneratedNameEntity.swift */; };
+		8B6B97EA28CF7BEE00604364 /* GeneratedNameDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B97E928CF7BEE00604364 /* GeneratedNameDataSource.swift */; };
+		8B6B97EE28CF821400604364 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B97ED28CF821400604364 /* NetworkError.swift */; };
+		8B6B97F028CF83BD00604364 /* GeneratedNameRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B97EF28CF83BD00604364 /* GeneratedNameRepository.swift */; };
+		8B6B97F228CF89B800604364 /* NetworkConfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B97F128CF89B700604364 /* NetworkConfigs.swift */; };
+		8B6B97F428CF89DB00604364 /* NetworkEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B97F328CF89DB00604364 /* NetworkEngine.swift */; };
+		8B6B97F628CF8A2700604364 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B97F528CF8A2700604364 /* NetworkRequest.swift */; };
+		8B6B97FA28CFA26100604364 /* GetGeneratedNameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B97F928CFA26100604364 /* GetGeneratedNameUseCase.swift */; };
 		8B7B66C828BE5E1900237C40 /* CharacterFormTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B66C728BE5E1900237C40 /* CharacterFormTextfield.swift */; };
 		8B8D418928A66A85008ED111 /* CharacterDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8D418828A66A85008ED111 /* CharacterDataSource.swift */; };
 		8BCEA0FC28C25836009701AE /* CharacterListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCEA0FB28C25836009701AE /* CharacterListRowView.swift */; };
@@ -83,6 +92,15 @@
 		8B3480F328AD032D0075FC4A /* EditCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCharacterView.swift; sourceTree = "<group>"; };
 		8B50497428ABB0A90069635E /* CreateCharacterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCharacterPresenter.swift; sourceTree = "<group>"; };
 		8B50497628ABB0C40069635E /* CreateCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCharacterView.swift; sourceTree = "<group>"; };
+		8B6B97E428CF78F200604364 /* GeneratedName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratedName.swift; sourceTree = "<group>"; };
+		8B6B97E728CF7A5100604364 /* GeneratedNameEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratedNameEntity.swift; sourceTree = "<group>"; };
+		8B6B97E928CF7BEE00604364 /* GeneratedNameDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratedNameDataSource.swift; sourceTree = "<group>"; };
+		8B6B97ED28CF821400604364 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		8B6B97EF28CF83BD00604364 /* GeneratedNameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratedNameRepository.swift; sourceTree = "<group>"; };
+		8B6B97F128CF89B700604364 /* NetworkConfigs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfigs.swift; sourceTree = "<group>"; };
+		8B6B97F328CF89DB00604364 /* NetworkEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEngine.swift; sourceTree = "<group>"; };
+		8B6B97F528CF8A2700604364 /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		8B6B97F928CFA26100604364 /* GetGeneratedNameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetGeneratedNameUseCase.swift; sourceTree = "<group>"; };
 		8B7B66C728BE5E1900237C40 /* CharacterFormTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterFormTextfield.swift; sourceTree = "<group>"; };
 		8B8D418828A66A85008ED111 /* CharacterDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDataSource.swift; sourceTree = "<group>"; };
 		8BCEA0FB28C25836009701AE /* CharacterListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListRowView.swift; sourceTree = "<group>"; };
@@ -191,8 +209,6 @@
 			isa = PBXGroup;
 			children = (
 				8B27CB7D28A5482C0006F535 /* Use cases */,
-				8B27CB8E28A55F660006F535 /* Errors */,
-				8B27CB7E28A548360006F535 /* Repositories */,
 				8B27CB7F28A548430006F535 /* Models */,
 			);
 			path = Domain;
@@ -201,7 +217,10 @@
 		8B27CB7728A544670006F535 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				8B27CB7E28A548360006F535 /* Repositories */,
 				8B8D418728A66A73008ED111 /* Data Sources */,
+				8B6B97E628CF7A4100604364 /* Entities */,
+				8B6B97EB28CF81E500604364 /* Network */,
 				8B8D418628A66A69008ED111 /* CoreData */,
 			);
 			path = Data;
@@ -225,6 +244,7 @@
 				8B27CB8428A549740006F535 /* CreateCharacterUseCase.swift */,
 				8B27CB8628A549930006F535 /* EditCharacterUseCase.swift */,
 				8B27CB8828A5499E0006F535 /* DeleteCharacterUseCase.swift */,
+				8B6B97F928CFA26100604364 /* GetGeneratedNameUseCase.swift */,
 			);
 			path = "Use cases";
 			sourceTree = "<group>";
@@ -233,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				8B27CB8A28A54A0F0006F535 /* CharacterRepository.swift */,
+				8B6B97EF28CF83BD00604364 /* GeneratedNameRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -241,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				8B27CB8C28A54A190006F535 /* Character.swift */,
+				8B6B97E428CF78F200604364 /* GeneratedName.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -282,11 +304,39 @@
 			path = "Character creation";
 			sourceTree = "<group>";
 		};
+		8B6B97E628CF7A4100604364 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				8B6B97E728CF7A5100604364 /* GeneratedNameEntity.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		8B6B97EB28CF81E500604364 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				8B6B97F128CF89B700604364 /* NetworkConfigs.swift */,
+				8B6B97F528CF8A2700604364 /* NetworkRequest.swift */,
+				8B6B97F328CF89DB00604364 /* NetworkEngine.swift */,
+				8B6B97EC28CF820400604364 /* Errors */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		8B6B97EC28CF820400604364 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				8B6B97ED28CF821400604364 /* NetworkError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
 		8B8D418628A66A69008ED111 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
 				8B27CB4F28A5431B0006F535 /* Persistence.swift */,
 				8B27CB5128A5431B0006F535 /* CharacterArchive.xcdatamodeld */,
+				8B27CB8E28A55F660006F535 /* Errors */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -295,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				8B8D418828A66A85008ED111 /* CharacterDataSource.swift */,
+				8B6B97E928CF7BEE00604364 /* GeneratedNameDataSource.swift */,
 			);
 			path = "Data Sources";
 			sourceTree = "<group>";
@@ -442,24 +493,33 @@
 				8B27CB8928A5499E0006F535 /* DeleteCharacterUseCase.swift in Sources */,
 				8B27CB8328A5492E0006F535 /* GetCharacterListUseCase.swift in Sources */,
 				8B50497528ABB0A90069635E /* CreateCharacterPresenter.swift in Sources */,
+				8B6B97F628CF8A2700604364 /* NetworkRequest.swift in Sources */,
 				8BCEA10128C266E1009701AE /* ViewExtension.swift in Sources */,
 				8B27CB8528A549740006F535 /* CreateCharacterUseCase.swift in Sources */,
 				8B27CB8D28A54A190006F535 /* Character.swift in Sources */,
+				8B6B97EA28CF7BEE00604364 /* GeneratedNameDataSource.swift in Sources */,
 				8B27CB5328A5431B0006F535 /* CharacterArchive.xcdatamodeld in Sources */,
 				8B30AED028AE888100D0841C /* PresentationError.swift in Sources */,
 				8B27CB7C28A547F60006F535 /* CharacterListPresenter.swift in Sources */,
 				8B27CB8B28A54A0F0006F535 /* CharacterRepository.swift in Sources */,
 				8B27CB8128A5491D0006F535 /* GetCharacterUseCase.swift in Sources */,
 				8B27CB9028A55F7A0006F535 /* CharacterError.swift in Sources */,
+				8B6B97F428CF89DB00604364 /* NetworkEngine.swift in Sources */,
 				8B27CB5028A5431B0006F535 /* Persistence.swift in Sources */,
 				8BDB6A7828B7D63000F2227D /* LoadingView.swift in Sources */,
 				8B27CB8728A549930006F535 /* EditCharacterUseCase.swift in Sources */,
+				8B6B97E528CF78F200604364 /* GeneratedName.swift in Sources */,
 				8BDB6A7A28B7EB7900F2227D /* LoadingState.swift in Sources */,
 				8B27CB7A28A5473B0006F535 /* CharacterListView.swift in Sources */,
+				8B6B97E828CF7A5100604364 /* GeneratedNameEntity.swift in Sources */,
 				8B8D418928A66A85008ED111 /* CharacterDataSource.swift in Sources */,
+				8B6B97F028CF83BD00604364 /* GeneratedNameRepository.swift in Sources */,
 				8B3480F228AD03230075FC4A /* EditCharacterPresenter.swift in Sources */,
+				8B6B97F228CF89B800604364 /* NetworkConfigs.swift in Sources */,
 				8BCEA0FC28C25836009701AE /* CharacterListRowView.swift in Sources */,
 				8BCEA0FF28C2591F009701AE /* Utility.swift in Sources */,
+				8B6B97FA28CFA26100604364 /* GetGeneratedNameUseCase.swift in Sources */,
+				8B6B97EE28CF821400604364 /* NetworkError.swift in Sources */,
 				8B3480F428AD032D0075FC4A /* EditCharacterView.swift in Sources */,
 				8B27CB4728A543180006F535 /* CharacterArchiveApp.swift in Sources */,
 				8B7B66C828BE5E1900237C40 /* CharacterFormTextfield.swift in Sources */,

@@ -62,7 +62,7 @@ struct PersistenceController: CoreDataWrapper {
         return entities
     }
     
-    func saveEntity(entity: NSManagedObject) throws{
+    func saveEntity(entity: NSManagedObject) throws {
         try save()
     }
     

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CharacterListRowView: View {
-    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    @AppStorage("isDarkMode") var isDarkMode: Bool = false
     var character: CharacterModel.Response
     
     var body: some View {
