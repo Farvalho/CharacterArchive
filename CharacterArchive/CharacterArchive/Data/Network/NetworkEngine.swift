@@ -10,61 +10,34 @@ import Foundation
 final class NetworkEngine {
     fileprivate let networkConfig: NetworkConfigs
     fileprivate let session: URLSession
-    fileprivate let group: DispatchGroup
 
     required init(networkConfig: NetworkConfigs) {
         self.networkConfig = networkConfig
         self.session = URLSession(configuration: URLSessionConfiguration.default)
-        self.group = DispatchGroup()
     }
-
-    func execute<T: Decodable>(request: NetworkRequest, completion: @escaping (Result<T, Error>) -> ()) throws {
-        // Execute request process in an asynchronous background thread
-        DispatchQueue.global(qos: .background).async {
-            let request = try! self.prepareURLRequest(for: request)
-            var result: Result<T, Error>?
+    
+    func execute<T: Decodable>(request: NetworkRequest) async throws -> Result<T, Error> {
+        let request = try! self.prepareURLRequest(for: request)
+        
+        // Try session data task and catch/return raw error
+        do {
+            // Ignoring returned URLResponse, might be needed in future implementations
+            let (data, _) = try await session.data(for: request)
             
-            self.group.enter()
-            self.session.dataTask(with: request) { [unowned self] (data, response, error) in
-                // Guard any output error, else return it
-                guard error == nil else {
-                    result = .failure(error!)
-                    
-                    self.group.leave()
-                    return
-                }
+            // Try decoding JSON data response and catch error
+            do {
+                let decoder = JSONDecoder()
+                let object = try decoder.decode(T.self, from: data)
+                return .success(object)
                 
-                // Guard (by unwrapping) the existence of output data, catch service error
-                guard let data = data else {
-                    result = .failure(NetworkError.networkError)
-                    
-                    self.group.leave()
-                    return
-                }
-                
-                // Try to decode the output, catch decoding error
-                do {
-                    let decoder = JSONDecoder()
-                    let object = try decoder.decode(T.self, from: data)
-                    result = .success(object)
-                    
-                    self.group.leave()
-                    return
-                    
-                } catch let jsonError {
-                    print(jsonError)
-                    result = .failure(NetworkError.decodingError)
-                    
-                    self.group.leave()
-                    return
-                
-                }
-            }.resume()
-            
-            // Notify the main thread that all tasks in the group have left
-            self.group.notify(queue: .main) {
-                completion(result!)
+            } catch let jsonError {
+                // Print raw error and return proprietary type
+                print(jsonError)
+                return .failure(NetworkError.decodingError)
             }
+            
+        } catch {
+            return .failure(error)
         }
     }
     

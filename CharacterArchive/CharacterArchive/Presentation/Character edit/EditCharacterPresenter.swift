@@ -64,6 +64,7 @@ class EditCharacterPresenter: ObservableObject {
         }
     }
     
+    @MainActor
     func editCharacter() async {
         if validate() {
             let character = CharacterModel.Request(name: name,

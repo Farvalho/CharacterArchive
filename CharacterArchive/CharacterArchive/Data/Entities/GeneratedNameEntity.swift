@@ -14,13 +14,13 @@ struct GeneratedNameEntity: Decodable {
 }
 
 struct GeneratedNameSuccess: Decodable {
-    let total: Int
-    let start: Int
-    let limit: Int
+    let total: Int?
+    let start: Int?
+    let limit: Int?
 }
 
 struct GeneratedNameContent: Decodable {
-    let category: String
-    let variation: String
-    let names: [String]
+    let category: String?
+    let variation: String?
+    let names: [String]?
 }

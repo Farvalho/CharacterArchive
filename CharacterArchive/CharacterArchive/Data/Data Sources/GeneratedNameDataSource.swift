@@ -8,36 +8,35 @@
 import Foundation
 
 protocol GeneratedNameDataSource {
-    func getGeneratedName(gender: NameGender, race: NameRace) async -> Result<GeneratedNameEntity, Error>
+    func getGeneratedName(gender: NameGender, race: NameRace) async -> Result<GeneratedName, Error>
 }
 
 class DefaultGeneratedNameDataSource: GeneratedNameDataSource {
     
     let networkEngine = NetworkEngine(networkConfig: NetworkConfigs(baseURL: "https://api.fungenerators.com/name"))
     
-    func getGeneratedName(gender: NameGender, race: NameRace) async -> Result<GeneratedNameEntity, Error> {
+    func getGeneratedName(gender: NameGender, race: NameRace) async -> Result<GeneratedName, Error> {
         let request = NetworkRequest(
             method: .get,
             endpoint: "generate",
             parameters: .url(["variation" : gender.rawValue, "category" : race.rawValue,  "limit" : "1"])
         )
         
-        var finalResult: Result<GeneratedNameEntity, Error>?
-        
-        try! networkEngine.execute(request: request) { (result: Result<GeneratedNameEntity, Error>) in
-            finalResult = result
-        }
-        
-        switch finalResult {
+        let result = try! await networkEngine.execute(request: request) as Result<GeneratedNameEntity, Error>
+        switch result {
         case .success(let response):
-            return .success(response)
+            if response.contents.names == nil ||
+                response.contents.variation == nil ||
+                response.contents.category == nil {
+                
+                return .failure(NetworkError.badOutput)
+            }
+            
+            let result = GeneratedName(name: response.contents.names![0], gender: response.contents.variation!, race: response.contents.category!)
+            return .success(result)
             
         case .failure(let error):
             return .failure(error)
-            
-        default:
-            return .failure(NetworkError.networkError)
         }
     }
-    
 }

@@ -23,15 +23,7 @@ class DefaultGeneratedNameRepository: GeneratedNameRepository {
     }
     
     func getGeneratedName(gender: NameGender, race: NameRace) async -> Result<GeneratedName, Error> {
-        let response = await dataSource.getGeneratedName(gender: gender, race: race)
-        switch response {
-        case .success(let entity):
-            let result = GeneratedName(name: entity.contents.names[0], gender: entity.contents.variation, race: entity.contents.category)
-            return .success(result)
-            
-        case .failure(let error):
-            return .failure(error)
-        }
+        return await dataSource.getGeneratedName(gender: gender, race: race)
     }
 
 }

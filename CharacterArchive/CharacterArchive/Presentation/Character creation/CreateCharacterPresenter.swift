@@ -28,6 +28,7 @@ class CreateCharacterPresenter: ObservableObject {
         self.getGeneratedName = getGeneratedName
     }
     
+    @MainActor
     func getGeneratedName() async {
         loadingState = .loading
         let result = await getGeneratedName.getGeneratedName(gender: .male, race: .dwarf)
@@ -36,11 +37,13 @@ class CreateCharacterPresenter: ObservableObject {
         switch result {
         case .success(let generated):
             name = generated.name
+            
         case .failure(_):
             self.error = PresentationError("Unable to get generated name", style: .Alert)
         }
     }
     
+    @MainActor
     func createCharacter() async {
         if validate() {
             let character = CharacterModel.Request(name: name,

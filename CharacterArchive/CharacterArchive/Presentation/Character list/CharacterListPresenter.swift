@@ -20,6 +20,7 @@ class CharacterListPresenter: ObservableObject {
         self.deleteCharacter = deleteCharacter
     }
     
+    @MainActor
     func getList() async {
         loadingState = .loading
         let result = await getCharacterList.execute()
@@ -40,6 +41,7 @@ class CharacterListPresenter: ObservableObject {
         }
     }
     
+    @MainActor
     func deleteCharacter(id: UUID) async {
         loadingState = .loading
         let result = await deleteCharacter.execute(id: id)
