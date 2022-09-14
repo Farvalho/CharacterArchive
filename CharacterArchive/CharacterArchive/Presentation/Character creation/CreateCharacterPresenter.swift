@@ -46,15 +46,15 @@ class CreateCharacterPresenter: ObservableObject {
     @MainActor
     func createCharacter() async {
         if validate() {
-            let character = CharacterModel.Request(name: name,
-                                                   race: race,
-                                                   charClass: charClass,
-                                                   str: Int16(str)!,
-                                                   dex: Int16(dex)!,
-                                                   con: Int16(con)!,
-                                                   int: Int16(int)!,
-                                                   wis: Int16(wis)!,
-                                                   cha: Int16(cha)!)
+            let character = Character(name: name,
+                                      race: race,
+                                      charClass: charClass,
+                                      str: Int16(str)!,
+                                      dex: Int16(dex)!,
+                                      con: Int16(con)!,
+                                      int: Int16(int)!,
+                                      wis: Int16(wis)!,
+                                      cha: Int16(cha)!)
             
             loadingState = .loading
             let result = await createCharacter.execute(character: character)

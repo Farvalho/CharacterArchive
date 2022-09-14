@@ -8,7 +8,7 @@
 import Foundation
 
 protocol DeleteCharacterUseCase {
-    func execute(id: UUID) async -> Result<Bool, CharacterError>
+    func execute(id: UUID) async -> Result<Bool, Error>
 }
 
 class DefaultDeleteCharacterUseCase: DeleteCharacterUseCase {
@@ -22,7 +22,7 @@ class DefaultDeleteCharacterUseCase: DeleteCharacterUseCase {
         self.repo = repository
     }
 
-    func execute(id: UUID) async -> Result<Bool, CharacterError> {
+    func execute(id: UUID) async -> Result<Bool, Error> {
         return await repo.deleteCharacter(id: id)
     }
 }

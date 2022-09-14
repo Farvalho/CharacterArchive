@@ -8,11 +8,11 @@
 import Foundation
 
 protocol CharacterRepository {
-    func getCharacter(id: UUID) async -> Result<CharacterModel.Response?, CharacterError>
-    func getCharacterList() async -> Result<[CharacterModel.Response], CharacterError>
-    func createCharacter(character: CharacterModel.Request) async -> Result<Bool, CharacterError>
-    func editCharacter(id: UUID, character: CharacterModel.Request) async -> Result<Bool, CharacterError>
-    func deleteCharacter(id: UUID) async -> Result<Bool, CharacterError>
+    func getCharacter(id: UUID) async -> Result<Character?, Error>
+    func getCharacterList() async -> Result<[Character], Error>
+    func createCharacter(character: Character) async -> Result<Bool, Error>
+    func editCharacter(id: UUID, character: Character) async -> Result<Bool, Error>
+    func deleteCharacter(id: UUID) async -> Result<Bool, Error>
 }
 
 class DefaultCharacterRepository: CharacterRepository {
@@ -26,23 +26,23 @@ class DefaultCharacterRepository: CharacterRepository {
         self.dataSource = dataSource
     }
     
-    func getCharacter(id: UUID) async -> Result<CharacterModel.Response?, CharacterError> {
+    func getCharacter(id: UUID) async -> Result<Character?, Error> {
         return await dataSource.getSingle(id: id)
     }
     
-    func getCharacterList() async -> Result<[CharacterModel.Response], CharacterError> {
+    func getCharacterList() async -> Result<[Character], Error> {
         return await dataSource.getMultiple()
     }
     
-    func createCharacter(character: CharacterModel.Request) async -> Result<Bool, CharacterError> {
+    func createCharacter(character: Character) async -> Result<Bool, Error> {
         return await dataSource.create(character: character)
     }
     
-    func editCharacter(id: UUID, character: CharacterModel.Request) async -> Result<Bool, CharacterError> {
+    func editCharacter(id: UUID, character: Character) async -> Result<Bool, Error> {
         return await dataSource.edit(id: id, character: character)
     }
     
-    func deleteCharacter(id: UUID) async -> Result<Bool, CharacterError> {
+    func deleteCharacter(id: UUID) async -> Result<Bool, Error> {
         return await dataSource.delete(id: id)
     }
 }

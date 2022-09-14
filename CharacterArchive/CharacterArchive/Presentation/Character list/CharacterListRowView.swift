@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CharacterListRowView: View {
     @AppStorage("isDarkMode") var isDarkMode: Bool = false
-    var character: CharacterModel.Response
+    var character: Character
     
     var body: some View {
         HStack(spacing: 20) {
@@ -38,16 +38,16 @@ struct CharacterListRowView: View {
 
 struct CharacterListRowView_Previews: PreviewProvider {
     static var previews: some View {
-        CharacterListRowView(character: CharacterModel.Response(id: UUID(),
-                                                                name: "Varian Wrynn",
-                                                                race: "Human",
-                                                                charClass: "Fighter",
-                                                                str: 6,
-                                                                dex: 11,
-                                                                con: 12,
-                                                                int: 12,
-                                                                wis: 19,
-                                                                cha: 10))
+        CharacterListRowView(character: Character(id: UUID(),
+                                                  name: "Varian Wrynn",
+                                                  race: "Human",
+                                                  charClass: "Fighter",
+                                                  str: 6,
+                                                  dex: 11,
+                                                  con: 12,
+                                                  int: 12,
+                                                  wis: 19,
+                                                  cha: 10))
         .previewLayout(.sizeThatFits)
     }
 }

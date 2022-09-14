@@ -8,11 +8,11 @@
 import Foundation
 
 protocol CharacterDataSource {
-    func getSingle(id: UUID) async -> Result<CharacterModel.Response?, CharacterError>
-    func getMultiple() async -> Result<[CharacterModel.Response], CharacterError>
-    func create(character: CharacterModel.Request) async -> Result<Bool, CharacterError>
-    func edit(id: UUID, character: CharacterModel.Request) async -> Result<Bool, CharacterError>
-    func delete(id: UUID) async -> Result<Bool, CharacterError>
+    func getSingle(id: UUID) async -> Result<Character?, Error>
+    func getMultiple() async -> Result<[Character], Error>
+    func create(character: Character) async -> Result<Bool, Error>
+    func edit(id: UUID, character: Character) async -> Result<Bool, Error>
+    func delete(id: UUID) async -> Result<Bool, Error>
 }
 
 class DefaultCharacterDataSource: CharacterDataSource {
@@ -27,8 +27,8 @@ class DefaultCharacterDataSource: CharacterDataSource {
         self.wrapper = wrapper
     }
     
-    private func mapToCharacter(characterEntity: CharacterEntity) -> CharacterModel.Response {
-        return CharacterModel.Response(id: characterEntity.id!, name: characterEntity.name ?? "", race: characterEntity.race ?? "", charClass: characterEntity.charClass ?? "", str: characterEntity.str, dex: characterEntity.dex, con: characterEntity.con, int: characterEntity.int, wis: characterEntity.wis, cha: characterEntity.cha)
+    private func mapToCharacter(characterEntity: CharacterEntity) -> Character {
+        return Character(id: characterEntity.id!, name: characterEntity.name ?? "", race: characterEntity.race ?? "", charClass: characterEntity.charClass ?? "", str: characterEntity.str, dex: characterEntity.dex, con: characterEntity.con, int: characterEntity.int, wis: characterEntity.wis, cha: characterEntity.cha)
     }
     
     private func getMultipleCharacters() throws -> [CharacterEntity] {
@@ -41,17 +41,17 @@ class DefaultCharacterDataSource: CharacterDataSource {
         return result[0]
     }
     
-    func getSingle(id: UUID) async -> Result<CharacterModel.Response?, CharacterError> {
+    func getSingle(id: UUID) async -> Result<Character?, Error> {
         do {
             let data = try getSingleCharacter(id: id)
-            return .success(CharacterModel.Response(id: data.id!, name: data.name ?? "", race: data.race ?? "", charClass: data.charClass ?? "", str: data.str, dex: data.dex, con: data.con, int: data.int, wis: data.wis, cha: data.cha))
+            return .success(Character(id: data.id!, name: data.name ?? "", race: data.race ?? "", charClass: data.charClass ?? "", str: data.str, dex: data.dex, con: data.con, int: data.int, wis: data.wis, cha: data.cha))
             
         } catch {
-            return .failure(.GetSingle)
+            return .failure(error)
         }
     }
     
-    func getMultiple() async -> Result<[CharacterModel.Response], CharacterError> {
+    func getMultiple() async -> Result<[Character], Error> {
         do {
             let data = try getMultipleCharacters()
             
@@ -60,11 +60,11 @@ class DefaultCharacterDataSource: CharacterDataSource {
             }))
             
         } catch {
-            return .failure(.GetMultiple)
+            return .failure(error)
         }
     }
     
-    func create(character: CharacterModel.Request) async -> Result<Bool, CharacterError> {
+    func create(character: Character) async -> Result<Bool, Error> {
         do {
             let newCharacter = CharacterEntity(context: wrapper.getContext())
             newCharacter.id = UUID()
@@ -81,11 +81,11 @@ class DefaultCharacterDataSource: CharacterDataSource {
             return .success(true)
             
         } catch {
-            return .failure(.Create)
+            return .failure(error)
         }
     }
     
-    func edit(id: UUID, character: CharacterModel.Request) async -> Result<Bool, CharacterError> {
+    func edit(id: UUID, character: Character) async -> Result<Bool, Error> {
         do {
             let oldData = try getSingleCharacter(id: id)
             oldData.name = character.name
@@ -101,18 +101,18 @@ class DefaultCharacterDataSource: CharacterDataSource {
             return .success(true)
             
         } catch {
-            return .failure(.Edit)
+            return .failure(error)
         }
     }
     
-    func delete(id: UUID) async -> Result<Bool, CharacterError> {
+    func delete(id: UUID) async -> Result<Bool, Error> {
         do {
             let data = try getSingleCharacter(id: id)
             try wrapper.deleteEntity(entity: data)
             return .success(true)
             
         } catch {
-            return .failure(.Delete)
+            return .failure(error)
         }
     }
 }

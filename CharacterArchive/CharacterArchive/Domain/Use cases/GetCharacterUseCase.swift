@@ -8,7 +8,7 @@
 import Foundation
 
 protocol GetCharacterUseCase {
-    func execute(id: UUID) async -> Result<CharacterModel.Response?, CharacterError>
+    func execute(id: UUID) async -> Result<Character?, Error>
 }
 
 class DefaultGetCharacterUseCase: GetCharacterUseCase {
@@ -22,7 +22,7 @@ class DefaultGetCharacterUseCase: GetCharacterUseCase {
         self.repo = repository
     }
 
-    func execute(id: UUID) async -> Result<CharacterModel.Response?, CharacterError> {
+    func execute(id: UUID) async -> Result<Character?, Error> {
         return await repo.getCharacter(id: id)
     }
 }

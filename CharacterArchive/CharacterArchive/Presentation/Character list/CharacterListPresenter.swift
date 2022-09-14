@@ -9,7 +9,7 @@ import Foundation
 
 class CharacterListPresenter: ObservableObject {
     
-    @Published var characters: [CharacterModel.Response] = []
+    @Published var characters: [Character] = []
     @Published var error = PresentationError()
     @Published var loadingState: LoadingState = .idle
     private let getCharacterList: GetCharacterListUseCase

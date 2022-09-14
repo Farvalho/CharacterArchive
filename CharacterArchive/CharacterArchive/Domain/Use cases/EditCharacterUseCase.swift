@@ -8,7 +8,7 @@
 import Foundation
 
 protocol EditCharacterUseCase {
-    func execute(id: UUID, character: CharacterModel.Request) async -> Result<Bool, CharacterError>
+    func execute(id: UUID, character: Character) async -> Result<Bool, Error>
 }
 
 class DefaultEditCharacterUseCase: EditCharacterUseCase {
@@ -22,7 +22,7 @@ class DefaultEditCharacterUseCase: EditCharacterUseCase {
         self.repo = repository
     }
 
-    func execute(id: UUID, character: CharacterModel.Request) async -> Result<Bool, CharacterError> {
+    func execute(id: UUID, character: Character) async -> Result<Bool, Error> {
         return await repo.editCharacter(id: id, character: character)
     }
 }
